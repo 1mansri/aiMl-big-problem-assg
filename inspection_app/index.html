@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BR-33 Visual Inspection</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #1d2430; --muted: #5d6878; --line: #d9dee6; --accent: #1f5fa8;
+  --cs0: #e9edf2; --cs1: #3f9b5a; --cs2: #d9b425; --cs3: #e07b24; --cs4: #c8312f;
+  --deck: #eef1f5; --girder: #c9d3df; --hover: #1f5fa833;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c; --panel: #1b2129; --ink: #e6eaf0; --muted: #9aa5b4; --line: #2e3742; --accent: #6aa5ea;
+    --cs0: #2a323d; --deck: #222a34; --girder: #3a4757; --hover: #6aa5ea44;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161c; --panel: #1b2129; --ink: #e6eaf0; --muted: #9aa5b4; --line: #2e3742; --accent: #6aa5ea;
+  --cs0: #2a323d; --deck: #222a34; --girder: #3a4757; --hover: #6aa5ea44;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: end; }
+header h1 { font-size: 17px; margin: 0 12px 0 0; }
+header .sub { color: var(--muted); font-size: 12px; }
+label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+input, select, textarea, button { font: inherit; color: var(--ink); }
+input, select, textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; width: 100%; }
+input[type=checkbox] { width: auto; }
+button { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 11px; cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button:hover { border-color: var(--accent); }
+main { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 14px; padding: 14px 16px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.panel h2 { font-size: 14px; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px 10px; margin-bottom: 8px; }
+.tabs button { padding: 3px 9px; font-size: 12px; }
+.tabs button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+svg { width: 100%; height: auto; display: block; }
+svg .hit { cursor: pointer; stroke: var(--muted); stroke-opacity: 0.35; stroke-width: 0.04; }
+svg .hit:hover { stroke: var(--accent); stroke-width: 0.12; }
+svg .sel { stroke: var(--accent) !important; stroke-width: 0.16 !important; }
+svg text { fill: var(--muted); font-size: 0.55px; pointer-events: none; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+.cs { display: inline-block; min-width: 38px; text-align: center; padding: 1px 6px; border-radius: 10px; color: #fff; font-weight: 600; font-size: 12px; }
+.cs1 { background: var(--cs1); } .cs2 { background: var(--cs2); color: #222; } .cs3 { background: var(--cs3); } .cs4 { background: var(--cs4); }
+.csbox { padding: 8px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); margin: 6px 0 10px; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+.tablewrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+.hi { font-size: 40px; font-weight: 700; line-height: 1; }
+.muted { color: var(--muted); font-size: 12px; }
+.thumb { width: 44px; height: 33px; object-fit: cover; border-radius: 4px; }
+.ndt li { margin-bottom: 8px; }
+.ndt b { display: block; }
+.btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.span2 { grid-column: 1 / -1; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+@media print { header button, .btns, #formPanel { display: none; } main { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1 id="title"></h1>
+    <div class="sub" id="subtitle"></div>
+  </div>
+  <div style="min-width:130px"><label for="mDate">Date</label><input type="date" id="mDate"></div>
+  <div style="min-width:150px"><label for="mInspector">Inspector</label><input id="mInspector" placeholder="name"></div>
+  <div style="min-width:170px"><label for="mType">Inspection type</label><select id="mType"></select></div>
+  <div style="min-width:140px"><label for="mWeather">Weather</label><input id="mWeather" placeholder="dry, 31 °C"></div>
+  <div><button id="themeBtn" title="Toggle light/dark">◐</button></div>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Span S1: click a zone <span class="tabs"><button id="tabUnder" class="on">Underside</button> <button id="tabTop">Deck top</button></span></h2>
+    <svg id="map" viewBox="-3.2 -1.6 39.4 19"></svg>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--cs0)"></span><span class="dot" style="background:var(--girder)"></span>no observation</span>
+      <span><span class="dot" style="background:var(--cs1)"></span>CS1</span>
+      <span><span class="dot" style="background:var(--cs2)"></span>CS2</span>
+      <span><span class="dot" style="background:var(--cs3)"></span>CS3</span>
+      <span><span class="dot" style="background:var(--cs4)"></span>CS4</span>
+    </div>
+  </section>
+
+  <section class="panel" id="formPanel">
+    <h2><span id="formTitle">New observation</span><button id="clearForm">Clear</button></h2>
+    <div class="row">
+      <div><label for="fComp">Component</label><select id="fComp"></select></div>
+      <div><label for="fLoc">Location</label><select id="fLoc"></select></div>
+    </div>
+    <div class="row">
+      <div><label for="fDefect">Observation</label><select id="fDefect"></select></div>
+      <div><label for="fPhoto">Photo</label><input type="file" id="fPhoto" accept="image/*" capture="environment"></div>
+    </div>
+    <div class="row" id="fInputs"></div>
+    <div class="csbox" id="csAuto"></div>
+    <div class="row">
+      <div><label for="fOverride">Inspector's condition state</label>
+        <select id="fOverride"><option value="">use rule</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      <div><label for="fReason">Reason for override</label><input id="fReason"></div>
+    </div>
+    <div class="row"><div class="span2"><label for="fNotes">Notes</label><textarea id="fNotes" rows="2"></textarea></div></div>
+    <div class="btns"><button class="primary" id="saveBtn">Add observation</button></div>
+  </section>
+
+  <section class="panel">
+    <h2>Condition summary <label style="margin:0;font-weight:400"><input type="checkbox" id="assumeCS1" checked> components without observations = CS1</label></h2>
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+      <div><div class="hi" id="hi">–</div><div class="muted">health index (0–100)</div></div>
+      <div style="flex:1;min-width:200px"><b id="action"></b><div class="muted" id="actionNote"></div></div>
+    </div>
+    <div class="tablewrap" style="max-height:none;margin-top:10px"><table id="compTable"></table></div>
+  </section>
+
+  <section class="panel">
+    <h2>Recommended NDT (observations at CS3 or CS4)</h2>
+    <ol class="ndt" id="ndtList"></ol>
+    <div class="muted" id="ndtNone"></div>
+  </section>
+
+  <section class="panel span2" style="grid-column:1/-1">
+    <h2><span>Observations (<span id="nrec">0</span>)</span>
+      <span class="btns">
+        <button id="exampleBtn">Load example</button>
+        <button id="exportCsv">Export CSV</button>
+        <button id="exportJson">Export JSON</button>
+        <label style="margin:0"><span class="sr" style="display:none">Import</span><input type="file" id="importJson" accept=".json" style="display:none"><button id="importBtn" type="button">Import JSON</button></label>
+        <button id="printBtn">Print</button>
+        <button id="clearAll">Clear all</button>
+      </span>
+    </h2>
+    <div class="tablewrap"><table id="recTable"></table></div>
+  </section>
+</main>
+
+<script>
+// Condition-state rules, health index and NDT recommendation.
+// Mirrors bridge/inspection.py; tests/test_step4.py checks that both give the same answers.
+
+function band(v, edges) {
+  for (let i = 0; i < 3; i++) if (v <= edges[i]) return i + 1;
+  return 4;
+}
+
+function conditionState(defect, material, d) {
+  const g = (k, dflt) => (d[k] === undefined || d[k] === null || d[k] === "") ? dflt : d[k];
+  const num = (k, dflt) => parseFloat(g(k, dflt === undefined ? 0 : dflt)) || 0;
+  let cs;
+  switch (defect) {
+    case "crack": {
+      const w = num("width_mm");
+      if (material === "PSC") {
+        cs = band(w, [0.05, 0.10, 0.30]);
+        const o = g("orientation", "");
+        if (o.startsWith("flexural") || o.startsWith("shear")) cs = w >= 0.1 ? Math.max(cs, 3) : Math.max(cs, 2);
+        if (o.startsWith("longitudinal") || o.startsWith("bursting")) cs = Math.max(cs, 3);
+      } else {
+        cs = band(w, [0.10, 0.30, 1.0]);
+      }
+      if (g("rust stain", false) === true) cs = Math.max(cs, 3);
+      return Math.min(cs, 4);
+    }
+    case "spalling": {
+      const s = g("steel exposed", "none");
+      cs = Math.max(band(num("area_m2"), [0.0, 0.10, 0.50]), 2);
+      if (s === "rebar") cs = Math.max(cs, 3);
+      if (s.startsWith("duct")) cs = 4;
+      return cs;
+    }
+    case "corrosion staining":
+      return ({ "light": 2, "moderate": 3 })[g("severity", "light")] || 4;
+    case "exposed steel":
+      return (g("steel", "rebar").startsWith("duct") || g("section loss", false) === true) ? 4 : 3;
+    case "leakage / efflorescence":
+      return ({ "damp patch": 2, "active leakage": 3, "efflorescence": 3 })[g("state", "damp patch")] || 4;
+    case "honeycombing":
+      if (g("duct visible", false) === true) return 4;
+      return num("depth_mm") > 0 ? band(num("depth_mm"), [0.0, 10.0, 25.0]) : 2;
+    case "surface deterioration":
+      return Math.max(2, band(num("depth_mm"), [0.0, 5.0, 15.0]));
+    case "impact damage":
+      return ({ "scrape": 2, "spalled": 3 })[g("severity", "scrape")] || 4;
+    case "missing members":
+      return num("count") <= 2 ? 3 : 4;
+    case "bearing shear deformation":
+      return band(num("shear_mm") / Math.max(num("elastomer_mm", 48), 1e-6), [0.5, 0.7, 1.0]);
+    case "bearing bulging / splitting":
+      return ({ "uniform bulging": 1, "uneven bulging": 2, "surface cracks": 3 })[g("state", "")] || 4;
+    case "bearing displacement / walking":
+      return band(num("offset_mm"), [5.0, 15.0, 30.0]);
+    case "bearing seized / debris":
+      return g("state", "").startsWith("debris") ? 2 : 4;
+    case "pedestal cracking":
+      return band(num("width_mm"), [0.1, 0.3, 1.0]);
+    case "joint debris":
+      return g("extent", "partial") === "partial" ? 2 : 3;
+    case "joint seal torn / leaking":
+      return 3;
+    case "joint anchorage damage":
+      return 4;
+    case "drain blocked":
+      return g("state", "partly") === "partly" ? 2 : 3;
+    case "drain damaged / missing":
+    case "discharge onto structure":
+      return 3;
+    case "wearing coat cracking":
+      return num("area_m2") > 0 ? band(num("area_m2"), [0.0, 5.0, 20.0]) : 2;
+    case "potholes / ravelling":
+      return Math.max(2, band(num("depth_mm"), [0.0, 25.0, 50.0]));
+    case "rutting":
+      return band(num("depth_mm"), [5.0, 15.0, 25.0]);
+  }
+  return 2;
+}
+
+function healthIndex(componentCS, weights) {
+  let num = 0, den = 0;
+  for (const [c, cs] of Object.entries(componentCS)) {
+    const w = weights[c];
+    num += w * (4 - cs) / 3;
+    den += w;
+  }
+  return den ? 100 * num / den : 100;
+}
+
+function actionFor(hi, worstCritical) {
+  if (worstCritical >= 4) return "special inspection now; restrict loading until assessed";
+  if (hi >= 85 && worstCritical <= 2) return "routine monitoring and next scheduled inspection";
+  if (hi >= 70) return "enhanced monitoring; targeted NDT at CS3 locations";
+  if (hi >= 50) return "detailed investigation (NDT + structural assessment)";
+  return "urgent detailed assessment and repair design";
+}
+
+// Index into NDT_PROGRAMME for an observation, or -1.
+function ndtFor(rec) {
+  const c = rec.component, d = rec.defect, o = (rec.inputs || {}).orientation || "";
+  const loc = rec.location || "";
+  if (c === "Bearings") return 7;
+  if (c === "PSC girders") {
+    if (d === "crack") {
+      if (o.startsWith("longitudinal") || (rec.inputs || {})["rust stain"] === true) return 0;
+      if (o.startsWith("flexural")) return 1;
+      if (o.startsWith("shear")) return 2;
+      if (o.startsWith("bursting")) return 6;
+    }
+    if (d === "corrosion staining" || d === "exposed steel") return 0;
+    if (d === "leakage / efflorescence") return loc.includes("End") ? 5 : 3;
+    if (d === "honeycombing" || d === "surface deterioration") return 3;
+    if (d === "spalling") return 4;
+  }
+  if (["Deck slab", "Cross girders", "Abutment A1", "Pier P1"].includes(c)) {
+    if (["spalling", "exposed steel", "corrosion staining"].includes(d)) return 4;
+    if (d === "honeycombing" || d === "surface deterioration") return 3;
+    if (d === "leakage / efflorescence") return 5;
+    if (d === "crack") return 4;
+  }
+  return -1;
+}
+
+if (false && typeof module !== "undefined") module.exports = { conditionState, healthIndex, actionFor, ndtFor, band };
+
+const SCHEME = {"bridge": {"id": "BR-33", "name": "33 m PSC I-girder viaduct (study bridge)", "span": "S1", "span_ends": ["A1 (abutment)", "P1 (pier)"], "span_m": 33.0, "deck_width_m": 15.4, "girders": 6, "built": "2026 (assumed)", "exposure": "severe"}, "components": {"PSC girders": {"material": "PSC", "weight": 1.0, "locations": ["G1/End-A1/bottom flange", "G1/End-A1/web", "G1/End-A1/top flange", "G1/End-A1/anchorage", "G1/L/4/bottom flange", "G1/L/4/web", "G1/L/4/top flange", "G1/L/2/bottom flange", "G1/L/2/web", "G1/L/2/top flange", "G1/3L/4/bottom flange", "G1/3L/4/web", "G1/3L/4/top flange", "G1/End-P1/bottom flange", "G1/End-P1/web", "G1/End-P1/top flange", "G1/End-P1/anchorage", "G2/End-A1/bottom flange", "G2/End-A1/web", "G2/End-A1/top flange", "G2/End-A1/anchorage", "G2/L/4/bottom flange", "G2/L/4/web", "G2/L/4/top flange", "G2/L/2/bottom flange", "G2/L/2/web", "G2/L/2/top flange", "G2/3L/4/bottom flange", "G2/3L/4/web", "G2/3L/4/top flange", "G2/End-P1/bottom flange", "G2/End-P1/web", "G2/End-P1/top flange", "G2/End-P1/anchorage", "G3/End-A1/bottom flange", "G3/End-A1/web", "G3/End-A1/top flange", "G3/End-A1/anchorage", "G3/L/4/bottom flange", "G3/L/4/web", "G3/L/4/top flange", "G3/L/2/bottom flange", "G3/L/2/web", "G3/L/2/top flange", "G3/3L/4/bottom flange", "G3/3L/4/web", "G3/3L/4/top flange", "G3/End-P1/bottom flange", "G3/End-P1/web", "G3/End-P1/top flange", "G3/End-P1/anchorage", "G4/End-A1/bottom flange", "G4/End-A1/web", "G4/End-A1/top flange", "G4/End-A1/anchorage", "G4/L/4/bottom flange", "G4/L/4/web", "G4/L/4/top flange", "G4/L/2/bottom flange", "G4/L/2/web", "G4/L/2/top flange", "G4/3L/4/bottom flange", "G4/3L/4/web", "G4/3L/4/top flange", "G4/End-P1/bottom flange", "G4/End-P1/web", "G4/End-P1/top flange", "G4/End-P1/anchorage", "G5/End-A1/bottom flange", "G5/End-A1/web", "G5/End-A1/top flange", "G5/End-A1/anchorage", "G5/L/4/bottom flange", "G5/L/4/web", "G5/L/4/top flange", "G5/L/2/bottom flange", "G5/L/2/web", "G5/L/2/top flange", "G5/3L/4/bottom flange", "G5/3L/4/web", "G5/3L/4/top flange", "G5/End-P1/bottom flange", "G5/End-P1/web", "G5/End-P1/top flange", "G5/End-P1/anchorage", "G6/End-A1/bottom flange", "G6/End-A1/web", "G6/End-A1/top flange", "G6/End-A1/anchorage", "G6/L/4/bottom flange", "G6/L/4/web", "G6/L/4/top flange", "G6/L/2/bottom flange", "G6/L/2/web", "G6/L/2/top flange", "G6/3L/4/bottom flange", "G6/3L/4/web", "G6/3L/4/top flange", "G6/End-P1/bottom flange", "G6/End-P1/web", "G6/End-P1/top flange", "G6/End-P1/anchorage"], "defects": ["crack", "spalling", "corrosion staining", "leakage / efflorescence", "honeycombing", "surface deterioration", "exposed steel"]}, "Deck slab": {"material": "RCC", "weight": 0.8, "locations": ["B1/End-A1/soffit", "B1/End-A1/top", "B1/L/4/soffit", "B1/L/4/top", "B1/L/2/soffit", "B1/L/2/top", "B1/3L/4/soffit", "B1/3L/4/top", "B1/End-P1/soffit", "B1/End-P1/top", "B2/End-A1/soffit", "B2/End-A1/top", "B2/L/4/soffit", "B2/L/4/top", "B2/L/2/soffit", "B2/L/2/top", "B2/3L/4/soffit", "B2/3L/4/top", "B2/End-P1/soffit", "B2/End-P1/top", "B3/End-A1/soffit", "B3/End-A1/top", "B3/L/4/soffit", "B3/L/4/top", "B3/L/2/soffit", "B3/L/2/top", "B3/3L/4/soffit", "B3/3L/4/top", "B3/End-P1/soffit", "B3/End-P1/top", "B4/End-A1/soffit", "B4/End-A1/top", "B4/L/4/soffit", "B4/L/4/top", "B4/L/2/soffit", "B4/L/2/top", "B4/3L/4/soffit", "B4/3L/4/top", "B4/End-P1/soffit", "B4/End-P1/top", "B5/End-A1/soffit", "B5/End-A1/top", "B5/L/4/soffit", "B5/L/4/top", "B5/L/2/soffit", "B5/L/2/top", "B5/3L/4/soffit", "B5/3L/4/top", "B5/End-P1/soffit", "B5/End-P1/top", "Cantilever-L/End-A1/soffit", "Cantilever-L/End-A1/top", "Cantilever-L/L/4/soffit", "Cantilever-L/L/4/top", "Cantilever-L/L/2/soffit", "Cantilever-L/L/2/top", "Cantilever-L/3L/4/soffit", "Cantilever-L/3L/4/top", "Cantilever-L/End-P1/soffit", "Cantilever-L/End-P1/top", "Cantilever-R/End-A1/soffit", "Cantilever-R/End-A1/top", "Cantilever-R/L/4/soffit", "Cantilever-R/L/4/top", "Cantilever-R/L/2/soffit", "Cantilever-R/L/2/top", "Cantilever-R/3L/4/soffit", "Cantilever-R/3L/4/top", "Cantilever-R/End-P1/soffit", "Cantilever-R/End-P1/top"], "defects": ["crack", "spalling", "corrosion staining", "leakage / efflorescence", "honeycombing", "surface deterioration", "exposed steel"]}, "Cross girders": {"material": "RCC", "weight": 0.6, "locations": ["CG-A1/B1", "CG-A1/B2", "CG-A1/B3", "CG-A1/B4", "CG-A1/B5", "CG-Mid/B1", "CG-Mid/B2", "CG-Mid/B3", "CG-Mid/B4", "CG-Mid/B5", "CG-P1/B1", "CG-P1/B2", "CG-P1/B3", "CG-P1/B4", "CG-P1/B5"], "defects": ["crack", "spalling", "corrosion staining", "leakage / efflorescence", "honeycombing", "exposed steel"]}, "Bearings": {"material": "elastomer", "weight": 0.7, "locations": ["BRG-A1-G1", "BRG-A1-G2", "BRG-A1-G3", "BRG-A1-G4", "BRG-A1-G5", "BRG-A1-G6", "BRG-P1-G1", "BRG-P1-G2", "BRG-P1-G3", "BRG-P1-G4", "BRG-P1-G5", "BRG-P1-G6"], "defects": ["bearing shear deformation", "bearing bulging / splitting", "bearing displacement / walking", "bearing seized / debris", "pedestal cracking"]}, "Expansion joints": {"material": "strip seal", "weight": 0.5, "locations": ["EJ-A1/footpath L", "EJ-A1/carriageway", "EJ-A1/footpath R", "EJ-P1/footpath L", "EJ-P1/carriageway", "EJ-P1/footpath R"], "defects": ["joint debris", "joint seal torn / leaking", "joint anchorage damage"]}, "Drainage": {"material": "spouts / pipes", "weight": 0.3, "locations": ["D1-L", "D2-L", "D3-L", "D4-L", "D1-R", "D2-R", "D3-R", "D4-R"], "defects": ["drain blocked", "drain damaged / missing", "discharge onto structure"]}, "Crash barriers": {"material": "RCC", "weight": 0.4, "locations": ["Barrier-L/End-A1", "Barrier-L/L/4", "Barrier-L/L/2", "Barrier-L/3L/4", "Barrier-L/End-P1", "Barrier-R/End-A1", "Barrier-R/L/4", "Barrier-R/L/2", "Barrier-R/3L/4", "Barrier-R/End-P1"], "defects": ["crack", "spalling", "impact damage", "exposed steel"]}, "Footpaths": {"material": "RCC / paving", "weight": 0.2, "locations": ["Footpath-L/End-A1", "Footpath-L/L/4", "Footpath-L/L/2", "Footpath-L/3L/4", "Footpath-L/End-P1", "Footpath-R/End-A1", "Footpath-R/L/4", "Footpath-R/L/2", "Footpath-R/3L/4", "Footpath-R/End-P1"], "defects": ["surface deterioration", "crack", "spalling"]}, "Railings": {"material": "steel / RCC", "weight": 0.2, "locations": ["Railing-L/End-A1", "Railing-L/L/4", "Railing-L/L/2", "Railing-L/3L/4", "Railing-L/End-P1", "Railing-R/End-A1", "Railing-R/L/4", "Railing-R/L/2", "Railing-R/3L/4", "Railing-R/End-P1"], "defects": ["impact damage", "corrosion staining", "missing members"]}, "Wearing coat": {"material": "bituminous", "weight": 0.3, "locations": ["Lane1/End-A1", "Lane1/L/4", "Lane1/L/2", "Lane1/3L/4", "Lane1/End-P1", "Lane2/End-A1", "Lane2/L/4", "Lane2/L/2", "Lane2/3L/4", "Lane2/End-P1", "Lane3/End-A1", "Lane3/L/4", "Lane3/L/2", "Lane3/3L/4", "Lane3/End-P1"], "defects": ["wearing coat cracking", "potholes / ravelling", "rutting"]}, "Abutment A1": {"material": "RCC", "weight": 0.8, "locations": ["bearing shelf", "dirt wall", "wing wall L", "wing wall R", "stem"], "defects": ["crack", "spalling", "leakage / efflorescence", "corrosion staining", "exposed steel"]}, "Pier P1": {"material": "RCC", "weight": 0.9, "locations": ["pier cap top", "pier cap soffit", "pier cap cantilever L", "pier cap cantilever R", "shaft"], "defects": ["crack", "spalling", "leakage / efflorescence", "corrosion staining", "exposed steel"]}}, "defects": {"crack": {"inputs": {"width_mm": "number", "length_m": "number", "orientation": ["map / random", "flexural (transverse, soffit)", "shear (diagonal, web)", "longitudinal along duct", "bursting (anchorage zone)", "other"], "rust stain": "bool"}}, "spalling": {"inputs": {"area_m2": "number", "depth_mm": "number", "steel exposed": ["none", "rebar", "duct / strand"]}}, "corrosion staining": {"inputs": {"area_m2": "number", "severity": ["light", "moderate", "heavy / section loss"]}}, "exposed steel": {"inputs": {"length_m": "number", "steel": ["rebar", "duct / strand"], "section loss": "bool"}}, "leakage / efflorescence": {"inputs": {"area_m2": "number", "state": ["damp patch", "active leakage", "efflorescence", "leakage with rust stain"]}}, "honeycombing": {"inputs": {"area_m2": "number", "depth_mm": "number", "duct visible": "bool"}}, "surface deterioration": {"inputs": {"area_m2": "number", "depth_mm": "number"}}, "impact damage": {"inputs": {"length_m": "number", "severity": ["scrape", "spalled", "displaced / broken"]}}, "missing members": {"inputs": {"count": "number"}}, "bearing shear deformation": {"inputs": {"shear_mm": "number", "elastomer_mm": "number"}}, "bearing bulging / splitting": {"inputs": {"state": ["uniform bulging", "uneven bulging", "surface cracks", "splits / exposed plates"]}}, "bearing displacement / walking": {"inputs": {"offset_mm": "number"}}, "bearing seized / debris": {"inputs": {"state": ["debris around", "restrained / seized"]}}, "pedestal cracking": {"inputs": {"width_mm": "number"}}, "joint debris": {"inputs": {"extent": ["partial", "full length"]}}, "joint seal torn / leaking": {"inputs": {"length_m": "number"}}, "joint anchorage damage": {"inputs": {"length_m": "number"}}, "drain blocked": {"inputs": {"state": ["partly", "fully"]}}, "drain damaged / missing": {"inputs": {}}, "discharge onto structure": {"inputs": {}}, "wearing coat cracking": {"inputs": {"area_m2": "number"}}, "potholes / ravelling": {"inputs": {"area_m2": "number", "depth_mm": "number"}}, "rutting": {"inputs": {"depth_mm": "number"}}}, "zones": ["End-A1", "L/4", "L/2", "3L/4", "End-P1"], "cs_text": {"1": "CS1 good: no or insignificant defects", "2": "CS2 fair: minor defects, no effect on capacity or durability yet", "3": "CS3 poor: defects affecting durability; may affect capacity if not treated", "4": "CS4 severe: capacity or safety may be affected; act now"}, "critical": ["PSC girders", "Bearings", "Pier P1", "Abutment A1"], "inspection_types": [{"type": "superficial (patrol)", "interval": "monthly", "by": "maintenance staff", "scope": "drive-over and walk-along: joints, drains, barriers, wearing coat, visible damage"}, {"type": "routine", "interval": "twice a year (pre- and post-monsoon)", "by": "bridge engineer", "scope": "all components from deck and ground with binoculars; bearings and joints close up; app records"}, {"type": "principal (detailed)", "interval": "every 3 years and at handing over", "by": "experienced bridge engineer", "scope": "hands-on, under-bridge unit; every location of the hierarchy; crack mapping; baseline NDT grid"}, {"type": "special", "interval": "after flood, earthquake, vehicle impact, fire, overload, or a monitoring alarm", "by": "specialist", "scope": "targeted: NDT, load test, structural assessment"}], "ndt_programme": [{"defect": "longitudinal crack / rust staining along a duct line (girder bottom flange)", "question": "Are the prestressing strands corroding? Is the duct fully grouted?", "tests": ["half-cell potential grid over the duct line", "concrete resistivity (Wenner)", "cover meter", "GPR / ultrasonic tomography over the duct", "chloride profile from drilled dust", "if indicated: endoscope through a drilled hole into the duct"], "interpretation": "potential < -350 mV CSE with resistivity < 10 kOhm cm: active corrosion likely; chloride at duct depth > 0.2 % of cement: depassivation of strand likely; tomography anomaly: grout void -> re-grouting (vacuum injection)", "locations": "along each cracked duct line, 0.25 m grid, +-1 m beyond the visible crack"}, {"defect": "transverse flexural cracks at the soffit near mid-span", "question": "Has the girder lost prestress (designed uncracked)?", "tests": ["crack width / length mapping and tell-tales or crack gauges", "UPV across the crack (crack depth)", "VW strain and levelling trend vs. reference curve", "load test (deflection, strain, crack opening)"], "interpretation": "cracks opening under traffic and a strain / camber trend away from the reference curve indicate prestress loss; compare decompression load in the load test with design", "locations": "L/4 .. 3L/4 of the affected girder, all faces of the bottom flange"}, {"defect": "diagonal web cracks near the supports", "question": "Is the shear capacity or the end-block reinforcement adequate?", "tests": ["crack mapping, width monitoring", "UPV (direct, through the web)", "cover meter for link spacing", "load test with trucks near the support"], "interpretation": "cracks > 0.2 mm or growing: detailed shear assessment with as-built links", "locations": "from the bearing to 1.5 d, both faces of the web"}, {"defect": "honeycombing / surface deterioration / doubtful concrete", "question": "Is the in-situ concrete quality and strength adequate?", "tests": ["rebound hammer (IS 516 Part 5/Sec 4)", "UPV (IS 516 Part 5/Sec 1)", "combined rebound + UPV (SonReb) calibrated on cores (IS 516 Part 4)"], "interpretation": "UPV well below the healthy reference (e.g. < 3.75 km/s, 'doubtful' in IS 516-5-1) or rebound below reference - 2 sd: take cores; estimate strength from the calibrated curve", "locations": "grid of test areas around the defect plus reference areas on sound concrete of the same element"}, {"defect": "spalling / delamination / exposed rebar on the deck soffit or cross girders", "question": "How far does corrosion-induced delamination extend? What is causing it?", "tests": ["hammer sounding", "half-cell potential", "cover meter", "carbonation depth (phenolphthalein)", "chloride profile"], "interpretation": "carbonation depth >= cover or chloride > 0.4 % of cement at rebar: corrosion initiated; repair extent = hollow-sounding area + 0.3 m", "locations": "the bay concerned on a 0.5 m grid, plus one sound bay as reference"}, {"defect": "leakage / efflorescence at girder ends below an expansion joint", "question": "Is chloride-laden water reaching the end blocks, anchorages and bearings?", "tests": ["chloride profile at anchorage zones", "half-cell potential on end blocks", "resistivity", "visual check of anchorage protection (open the pocket if necessary)"], "interpretation": "chloride rising with depth and potentials more negative than -350 mV: anchorage at risk; replace the joint seal first, then repair", "locations": "end blocks of all girders under the leaking joint (0.25 m grid over 1.5 m)"}, {"defect": "bursting / splitting cracks in the anchorage zone", "question": "Is the anchorage-zone reinforcement working? Is the anchorage itself sound?", "tests": ["crack mapping", "UPV", "GPR for bursting steel", "impact-echo on the anchorage pocket"], "interpretation": "cracks > 0.2 mm or voids behind the plate: specialist assessment of the anchorage", "locations": "end face and 1 m of the end block"}, {"defect": "bearing shear deformation, bulging, splitting, walking or seizure", "question": "Is the bearing accommodating movement and rotation as designed?", "tests": ["measure shear deformation and bulging with a gauge", "bearing-displacement transducer: movement vs. temperature", "Shore A hardness of the elastomer", "level survey of the bearing seat"], "interpretation": "shear strain > 0.7, splits or exposed plates, or a movement / temperature slope well below alpha L = 0.386 mm/degC: replace the bearing (jacking under the end cross girder)", "locations": "all 12 bearings"}], "girder_y": [1.2000000000000002, 3.8000000000000003, 6.4, 9.0, 11.600000000000001, 14.2], "deck_width": 15.4, "span": 33.0};
+const EXAMPLE = {"meta": {"date": "2038-11-20", "inspector": "(example)", "type": "principal (detailed)", "weather": "dry, 26 degC"}, "records": [{"id": 1, "time": "2038-11-20T10:00:00", "component": "Expansion joints", "location": "EJ-A1/carriageway", "defect": "joint seal torn / leaking", "inputs": {"length_m": 3.5}, "cs": 3, "cs_override": "", "reason": "", "notes": "seal torn in lane 2; water dripping onto bearing shelf after rain", "photo": null}, {"id": 2, "time": "2038-11-20T10:00:00", "component": "PSC girders", "location": "G1/End-A1/web", "defect": "leakage / efflorescence", "inputs": {"area_m2": 0.6, "state": "efflorescence"}, "cs": 3, "cs_override": "", "reason": "", "notes": "white deposits below the joint, end block of G1", "photo": null}, {"id": 3, "time": "2038-11-20T10:00:00", "component": "PSC girders", "location": "G2/End-A1/anchorage", "defect": "leakage / efflorescence", "inputs": {"area_m2": 0.3, "state": "active leakage"}, "cs": 3, "cs_override": "", "reason": "", "notes": "damp anchorage pocket", "photo": null}, {"id": 4, "time": "2038-11-20T10:00:00", "component": "Bearings", "location": "BRG-A1-G1", "defect": "bearing shear deformation", "inputs": {"shear_mm": 30, "elastomer_mm": 48}, "cs": 2, "cs_override": "", "reason": "", "notes": "measured at 34 degC deck temperature", "photo": null}, {"id": 5, "time": "2038-11-20T10:00:00", "component": "Bearings", "location": "BRG-P1-G6", "defect": "bearing bulging / splitting", "inputs": {"state": "uneven bulging"}, "cs": 2, "cs_override": "", "reason": "", "notes": "", "photo": null}, {"id": 6, "time": "2038-11-20T10:00:00", "component": "Drainage", "location": "D2-L", "defect": "drain blocked", "inputs": {"state": "fully"}, "cs": 3, "cs_override": "", "reason": "", "notes": "ponding near kerb", "photo": null}, {"id": 7, "time": "2038-11-20T10:00:00", "component": "Deck slab", "location": "B1/L/2/soffit", "defect": "crack", "inputs": {"width_mm": 0.15, "length_m": 1.8, "orientation": "map / random", "rust stain": false}, "cs": 2, "cs_override": "", "reason": "", "notes": "shrinkage pattern", "photo": null}, {"id": 8, "time": "2038-11-20T10:00:00", "component": "PSC girders", "location": "G3/L/2/bottom flange", "defect": "crack", "inputs": {"width_mm": 0.05, "length_m": 0.4, "orientation": "flexural (transverse, soffit)", "rust stain": false}, "cs": 2, "cs_override": "", "reason": "", "notes": "hairline; record for the next inspection", "photo": null}, {"id": 9, "time": "2038-11-20T10:00:00", "component": "Wearing coat", "location": "Lane2/L/2", "defect": "potholes / ravelling", "inputs": {"area_m2": 0.8, "depth_mm": 30}, "cs": 3, "cs_override": "", "reason": "", "notes": "", "photo": null}, {"id": 10, "time": "2038-11-20T10:00:00", "component": "Crash barriers", "location": "Barrier-L/L/4", "defect": "impact damage", "inputs": {"length_m": 2.0, "severity": "scrape"}, "cs": 2, "cs_override": "", "reason": "", "notes": "", "photo": null}, {"id": 11, "time": "2038-11-20T10:00:00", "component": "Pier P1", "location": "pier cap top", "defect": "leakage / efflorescence", "inputs": {"area_m2": 1.2, "state": "efflorescence"}, "cs": 3, "cs_override": "", "reason": "", "notes": "water from joint EJ-P1 not reaching the drain", "photo": null}]};
+const KEY = "br33-inspection-v1";
+const $ = (id) => document.getElementById(id);
+const comps = SCHEME.components;
+const weights = Object.fromEntries(Object.entries(comps).map(([k, v]) => [k, v.weight]));
+
+let state = { meta: {}, records: [] };
+let editing = null, view = "under", selPrefix = null, photo = null;
+
+function load() {
+  try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.records) state = s; } catch (e) {}
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
+function opt(sel, values, cur) { sel.innerHTML = values.map(v => `<option${v === cur ? " selected" : ""}>${esc(v)}</option>`).join(""); }
+
+// ------------------------------------------------------------------ header / meta
+function initMeta() {
+  const b = SCHEME.bridge;
+  $("title").textContent = `${b.id} · ${b.name}`;
+  $("subtitle").textContent = `Span ${b.span} (${b.span_ends.join(" – ")}), ${b.span_m} m, deck ${b.deck_width_m} m, ${b.girders} girders, exposure ${b.exposure}`;
+  opt($("mType"), SCHEME.inspection_types.map(t => t.type), state.meta.type || "routine");
+  $("mDate").value = state.meta.date || new Date().toISOString().slice(0, 10);
+  $("mInspector").value = state.meta.inspector || "";
+  $("mWeather").value = state.meta.weather || "";
+  for (const id of ["mDate", "mInspector", "mType", "mWeather"]) $(id).addEventListener("change", () => {
+    state.meta = { date: $("mDate").value, inspector: $("mInspector").value, type: $("mType").value, weather: $("mWeather").value };
+    save();
+  });
+}
+
+// ------------------------------------------------------------------ map
+const L = SCHEME.span, B = SCHEME.deck_width, GY = SCHEME.girder_y;
+const ZB = [0, 3.3, 12.375, 20.625, 29.7, L];   // zone boundaries along the span
+const ZN = SCHEME.zones;
+function worstAt(component, prefix) {
+  let w = 0;
+  for (const r of state.records) if (r.component === component && r.location.startsWith(prefix)) w = Math.max(w, csOf(r));
+  return w;
+}
+function fill(cs, dflt) { return cs ? `var(--cs${cs})` : (dflt || "var(--cs0)"); }
+function shape(tag, attrs, comp, prefix, label, dflt) {
+  const cs = worstAt(comp, prefix);
+  const a = Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(" ");
+  const sel = selPrefix === comp + "|" + prefix ? " sel" : "";
+  return `<${tag} class="hit${sel}" ${a} fill="${fill(cs, dflt)}" data-c="${esc(comp)}" data-p="${esc(prefix)}"><title>${esc(comp)}: ${esc(label || prefix)}${cs ? " (worst CS" + cs + ")" : ""}</title></${tag}>`;
+}
+function drawMap() {
+  let s = `<rect x="0" y="0" width="${L}" height="${B}" fill="var(--deck)" />`;
+  if (view === "under") {
+    const edges = [0, ...GY.slice(0, -1).map((y, i) => (y + GY[i + 1]) / 2), B];
+    // deck bays
+    const bays = [["Cantilever-L", 0, GY[0]], ...GY.slice(0, -1).map((y, i) => [`B${i + 1}`, y, GY[i + 1]]), ["Cantilever-R", GY[GY.length - 1], B]];
+    for (const [bn, y0, y1] of bays) for (let z = 0; z < 5; z++)
+      s += shape("rect", { x: ZB[z] + 0.05, y: y0 + 0.3, width: ZB[z + 1] - ZB[z] - 0.1, height: Math.max(y1 - y0 - 0.6, 0.2) }, "Deck slab", `${bn}/${ZN[z]}/soffit`, `${bn} ${ZN[z]} soffit`);
+    // girders
+    GY.forEach((y, g) => {
+      for (let z = 0; z < 5; z++)
+        s += shape("rect", { x: ZB[z] + 0.05, y: y - 0.28, width: ZB[z + 1] - ZB[z] - 0.1, height: 0.56 }, "PSC girders", `G${g + 1}/${ZN[z]}/`, `G${g + 1} ${ZN[z]}`, "var(--girder)");
+      s += `<text x="-1.75" y="${y + 0.2}">G${g + 1}</text>`;
+      s += shape("circle", { cx: -0.4, cy: y, r: 0.3 }, "Bearings", `BRG-A1-G${g + 1}`, null, "var(--girder)");
+      s += shape("circle", { cx: L + 0.4, cy: y, r: 0.3 }, "Bearings", `BRG-P1-G${g + 1}`, null, "var(--girder)");
+    });
+    // cross girders
+    [["A1", 0.25], ["Mid", L / 2], ["P1", L - 0.25]].forEach(([p, x]) => {
+      GY.slice(0, -1).forEach((y, i) => s += shape("rect", { x: x - 0.22, y: y + 0.32, width: 0.44, height: GY[i + 1] - y - 0.64 }, "Cross girders", `CG-${p}/B${i + 1}`, null, "var(--girder)"));
+    });
+    s += shape("rect", { x: -3.1, y: 0, width: 1.2, height: B }, "Abutment A1", "", "abutment A1");
+    s += shape("rect", { x: L + 1.0, y: 0, width: 1.2, height: B }, "Pier P1", "", "pier P1");
+    s += `<text x="-2.6" y="-0.5">A1</text><text x="${L + 1.5}" y="-0.5">P1</text>`;
+  } else {
+    const strips = [["Railings", "Railing-L", 0, 0.25], ["Footpaths", "Footpath-L", 0.25, 1.75], ["Crash barriers", "Barrier-L", 1.75, 2.2],
+                    ["Crash barriers", "Barrier-R", 13.2, 13.65], ["Footpaths", "Footpath-R", 13.65, 15.15], ["Railings", "Railing-R", 15.15, 15.4]];
+    for (const [c, p, y0, y1] of strips) for (let z = 0; z < 5; z++)
+      s += shape("rect", { x: ZB[z] + 0.03, y: y0 + 0.02, width: ZB[z + 1] - ZB[z] - 0.06, height: y1 - y0 - 0.04 }, c, `${p}/${ZN[z]}`);
+    for (let l = 0; l < 3; l++) for (let z = 0; z < 5; z++) {
+      const y0 = 2.2 + l * 11 / 3;
+      s += shape("rect", { x: ZB[z] + 0.05, y: y0 + 0.05, width: ZB[z + 1] - ZB[z] - 0.1, height: 11 / 3 - 0.1 }, "Wearing coat", `Lane${l + 1}/${ZN[z]}`);
+    }
+    for (const [e, x] of [["A1", -0.7], ["P1", L + 0.1]]) {
+      [["footpath L", 0, 2.2], ["carriageway", 2.2, 13.2], ["footpath R", 13.2, B]].forEach(([n, y0, y1]) =>
+        s += shape("rect", { x: x, y: y0 + 0.03, width: 0.6, height: y1 - y0 - 0.06 }, "Expansion joints", `EJ-${e}/${n}`));
+    }
+    [4, 12, 20, 28].forEach((x, k) => {
+      s += shape("rect", { x: x - 0.25, y: 2.25, width: 0.5, height: 0.5 }, "Drainage", `D${k + 1}-L`);
+      s += shape("rect", { x: x - 0.25, y: 12.65, width: 0.5, height: 0.5 }, "Drainage", `D${k + 1}-R`);
+    });
+    s += `<text x="${L / 2 - 3}" y="-0.5">traffic lanes 1–3 · joints at both ends · drain spouts</text>`;
+  }
+  s += `<text x="0" y="${B + 1.0}">x = 0 (A1)</text><text x="${L - 4}" y="${B + 1.0}">x = ${L} m (P1)</text>`;
+  $("map").innerHTML = s;
+  $("map").querySelectorAll(".hit").forEach(el => el.addEventListener("click", () => pick(el.dataset.c, el.dataset.p)));
+}
+function pick(comp, prefix) {
+  selPrefix = comp + "|" + prefix;
+  $("fComp").value = comp;
+  fillLocations(prefix);
+  fillDefects();
+  drawMap();
+}
+
+// ------------------------------------------------------------------ form
+function fillLocations(prefix) {
+  const locs = comps[$("fComp").value].locations.filter(l => !prefix || l.startsWith(prefix));
+  opt($("fLoc"), locs.length ? locs : comps[$("fComp").value].locations);
+}
+function fillDefects(cur) { opt($("fDefect"), comps[$("fComp").value].defects, cur); fillInputs(); }
+function fillInputs(values) {
+  const spec = SCHEME.defects[$("fDefect").value].inputs;
+  let h = "";
+  for (const [k, t] of Object.entries(spec)) {
+    const id = "in_" + k.replace(/\W/g, "_");
+    const v = values ? values[k] : undefined;
+    if (t === "number") h += `<div><label for="${id}">${esc(k)}</label><input type="number" step="any" min="0" id="${id}" data-k="${esc(k)}" data-t="number" value="${v ?? ""}"></div>`;
+    else if (t === "bool") h += `<div><label><input type="checkbox" id="${id}" data-k="${esc(k)}" data-t="bool"${v ? " checked" : ""}> ${esc(k)}</label></div>`;
+    else h += `<div><label for="${id}">${esc(k)}</label><select id="${id}" data-k="${esc(k)}" data-t="select">${t.map(o => `<option${o === v ? " selected" : ""}>${esc(o)}</option>`).join("")}</select></div>`;
+  }
+  $("fInputs").innerHTML = h;
+  $("fInputs").querySelectorAll("input,select").forEach(el => el.addEventListener("input", showCS));
+  showCS();
+}
+function readInputs() {
+  const d = {};
+  $("fInputs").querySelectorAll("[data-k]").forEach(el => {
+    d[el.dataset.k] = el.dataset.t === "bool" ? el.checked : el.dataset.t === "number" ? (el.value === "" ? "" : parseFloat(el.value)) : el.value;
+  });
+  return d;
+}
+function ruleCS() { return conditionState($("fDefect").value, comps[$("fComp").value].material, readInputs()); }
+function showCS() {
+  const cs = ruleCS();
+  $("csAuto").innerHTML = `Rule: <span class="cs cs${cs}">CS${cs}</span> ${esc(SCHEME.cs_text[cs].replace(/^CS\d /, ""))}`;
+}
+function csOf(r) { return r.cs_override ? +r.cs_override : r.cs; }
+function clearForm() {
+  editing = null; photo = null; $("fPhoto").value = ""; $("fNotes").value = ""; $("fOverride").value = ""; $("fReason").value = "";
+  $("saveBtn").textContent = "Add observation"; $("formTitle").textContent = "New observation"; fillInputs();
+}
+function resizePhoto(file) {
+  return new Promise(res => {
+    const img = new Image(), rd = new FileReader();
+    rd.onload = () => { img.onload = () => {
+      const k = Math.min(1, 900 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = img.width * k; c.height = img.height * k;
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); res(c.toDataURL("image/jpeg", 0.7));
+    }; img.src = rd.result; };
+    rd.readAsDataURL(file);
+  });
+}
+async function saveObs() {
+  if ($("fOverride").value && !$("fReason").value.trim()) { $("fReason").focus(); $("fReason").placeholder = "required with an override"; return; }
+  const f = $("fPhoto").files[0];
+  if (f) photo = await resizePhoto(f);
+  const rec = { id: editing ?? Date.now() + Math.random(), time: new Date().toISOString(), component: $("fComp").value,
+    location: $("fLoc").value, defect: $("fDefect").value, inputs: readInputs(), cs: ruleCS(),
+    cs_override: $("fOverride").value, reason: $("fReason").value, notes: $("fNotes").value, photo: photo };
+  const i = state.records.findIndex(r => r.id === editing);
+  if (i >= 0) { rec.photo = photo ?? state.records[i].photo; state.records[i] = rec; } else state.records.push(rec);
+  save(); clearForm(); renderAll();
+}
+function edit(id) {
+  const r = state.records.find(r => r.id === id); if (!r) return;
+  editing = id; photo = r.photo || null;
+  $("fComp").value = r.component; fillLocations(); $("fLoc").value = r.location; fillDefects(r.defect); fillInputs(r.inputs);
+  $("fOverride").value = r.cs_override || ""; $("fReason").value = r.reason || ""; $("fNotes").value = r.notes || "";
+  $("saveBtn").textContent = "Update observation"; $("formTitle").textContent = "Edit observation";
+  $("formPanel").scrollIntoView({ behavior: "smooth" });
+}
+
+// ------------------------------------------------------------------ summary, records, NDT
+function summarise() {
+  const worst = {};
+  for (const r of state.records) worst[r.component] = Math.max(worst[r.component] || 1, csOf(r));
+  const used = { ...worst };
+  if ($("assumeCS1").checked) for (const c of Object.keys(comps)) if (!(c in used)) used[c] = 1;
+  return { worst, used };
+}
+function renderSummary() {
+  const { worst, used } = summarise();
+  const hi = healthIndex(used, weights);
+  const crit = Math.max(1, ...SCHEME.critical.map(c => worst[c] || 1));
+  $("hi").textContent = Object.keys(used).length ? hi.toFixed(0) : "–";
+  $("action").textContent = Object.keys(used).length ? actionFor(hi, crit) : "No observations yet.";
+  $("actionNote").textContent = "Index weights components by importance; a CS4 on girders, bearings, pier or abutment overrides it.";
+  let h = "<tr><th>Component</th><th>weight</th><th>observations</th><th>worst</th></tr>";
+  for (const [c, v] of Object.entries(comps)) {
+    const n = state.records.filter(r => r.component === c).length;
+    const cs = worst[c];
+    h += `<tr><td>${esc(c)}</td><td>${v.weight}</td><td>${n}</td><td>${cs ? `<span class="cs cs${cs}">CS${cs}</span>` : '<span class="muted">' + (used[c] ? "CS1 (assumed)" : "–") + "</span>"}</td></tr>`;
+  }
+  $("compTable").innerHTML = h;
+}
+function renderRecords() {
+  $("nrec").textContent = state.records.length;
+  let h = "<tr><th>Component</th><th>Location</th><th>Observation</th><th>Measurements</th><th>CS</th><th>Photo</th><th>Notes</th><th></th></tr>";
+  const sorted = [...state.records].sort((a, b) => csOf(b) - csOf(a));
+  for (const r of sorted) {
+    const m = Object.entries(r.inputs).filter(([k, v]) => v !== "" && v !== false).map(([k, v]) => `${k}: ${v === true ? "yes" : v}`).join("; ");
+    const cs = csOf(r);
+    h += `<tr><td>${esc(r.component)}</td><td>${esc(r.location)}</td><td>${esc(r.defect)}</td><td>${esc(m)}</td>
+      <td><span class="cs cs${cs}">CS${cs}</span>${r.cs_override ? `<div class="muted">rule CS${r.cs}; ${esc(r.reason)}</div>` : ""}</td>
+      <td>${r.photo ? `<img class="thumb" src="${r.photo}" alt="photo of ${esc(r.defect)}">` : ""}</td><td>${esc(r.notes || "")}</td>
+      <td class="btns"><button data-e="${r.id}">Edit</button><button data-d="${r.id}">Delete</button></td></tr>`;
+  }
+  $("recTable").innerHTML = h;
+  $("recTable").querySelectorAll("[data-e]").forEach(b => b.onclick = () => edit(+b.dataset.e));
+  $("recTable").querySelectorAll("[data-d]").forEach(b => b.onclick = () => { state.records = state.records.filter(r => r.id !== +b.dataset.d); save(); renderAll(); });
+}
+function renderNDT() {
+  const groups = {};
+  for (const r of state.records) if (csOf(r) >= 3) {
+    const k = ndtFor(r); if (k < 0) continue;
+    (groups[k] = groups[k] || []).push(r);
+  }
+  let h = "";
+  for (const [k, rs] of Object.entries(groups)) {
+    const p = SCHEME.ndt_programme[k];
+    h += `<li><b>${esc(p.question)}</b><span class="muted">Triggered by: ${rs.map(r => esc(r.location) + " (" + esc(r.defect) + ")").join(", ")}</span>
+      <div>Tests: ${p.tests.map(esc).join(" · ")}</div><div class="muted">Interpretation: ${esc(p.interpretation)}</div>
+      <div class="muted">Where: ${esc(p.locations)}</div></li>`;
+  }
+  $("ndtList").innerHTML = h;
+  $("ndtNone").textContent = h ? "" : "No CS3/CS4 observations: routine NDT only (baseline grid at principal inspections).";
+}
+function renderAll() { drawMap(); renderSummary(); renderRecords(); renderNDT(); }
+
+// ------------------------------------------------------------------ export / import
+function download(name, text, type) {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function toCSV() {
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const head = ["bridge", "span", "date", "inspector", "type", "component", "location", "observation", "measurements", "cs_rule", "cs_final", "override_reason", "notes"];
+  const rows = state.records.map(r => [SCHEME.bridge.id, SCHEME.bridge.span, state.meta.date, state.meta.inspector, state.meta.type, r.component, r.location, r.defect,
+    Object.entries(r.inputs).map(([k, v]) => `${k}=${v}`).join("; "), r.cs, csOf(r), r.reason, r.notes]);
+  return [head, ...rows].map(r => r.map(q).join(",")).join("\n");
+}
+
+// ------------------------------------------------------------------ wiring
+function init() {
+  load(); initMeta();
+  opt($("fComp"), Object.keys(comps));
+  $("fComp").addEventListener("change", () => { selPrefix = null; fillLocations(); fillDefects(); drawMap(); });
+  $("fDefect").addEventListener("change", () => fillInputs());
+  $("fLoc").addEventListener("change", showCS);
+  fillLocations(); fillDefects();
+  $("saveBtn").onclick = saveObs; $("clearForm").onclick = clearForm;
+  $("tabUnder").onclick = () => { view = "under"; $("tabUnder").classList.add("on"); $("tabTop").classList.remove("on"); drawMap(); };
+  $("tabTop").onclick = () => { view = "top"; $("tabTop").classList.add("on"); $("tabUnder").classList.remove("on"); drawMap(); };
+  $("assumeCS1").onchange = renderSummary;
+  $("exportCsv").onclick = () => download(`${SCHEME.bridge.id}_inspection_${state.meta.date || "undated"}.csv`, toCSV(), "text/csv");
+  $("exportJson").onclick = () => download(`${SCHEME.bridge.id}_inspection_${state.meta.date || "undated"}.json`, JSON.stringify(state, null, 1), "application/json");
+  $("importBtn").onclick = () => $("importJson").click();
+  $("importJson").onchange = async (e) => {
+    try { const s = JSON.parse(await e.target.files[0].text()); if (s.records) { state = s; save(); initMeta(); renderAll(); } } catch (err) { alert("Not a valid inspection file."); }
+  };
+  $("exampleBtn").onclick = () => { state = JSON.parse(JSON.stringify(EXAMPLE)); save(); initMeta(); renderAll(); };
+  $("clearAll").onclick = () => { if (confirm("Delete all observations of this inspection?")) { state.records = []; save(); renderAll(); } };
+  $("printBtn").onclick = () => window.print();
+  $("themeBtn").onclick = () => {
+    const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme = dark ? "light" : "dark";
+  };
+  renderAll();
+}
+init();
+</script>
+</body>
+</html>

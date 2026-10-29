@@ -1,0 +1,760 @@
+{
+ "bridge": {
+  "id": "BR-33",
+  "name": "33 m PSC I-girder viaduct (study bridge)",
+  "span": "S1",
+  "span_ends": [
+   "A1 (abutment)",
+   "P1 (pier)"
+  ],
+  "span_m": 33.0,
+  "deck_width_m": 15.4,
+  "girders": 6,
+  "built": "2026 (assumed)",
+  "exposure": "severe"
+ },
+ "components": {
+  "PSC girders": {
+   "material": "PSC",
+   "weight": 1.0,
+   "locations": [
+    "G1/End-A1/bottom flange",
+    "G1/End-A1/web",
+    "G1/End-A1/top flange",
+    "G1/End-A1/anchorage",
+    "G1/L/4/bottom flange",
+    "G1/L/4/web",
+    "G1/L/4/top flange",
+    "G1/L/2/bottom flange",
+    "G1/L/2/web",
+    "G1/L/2/top flange",
+    "G1/3L/4/bottom flange",
+    "G1/3L/4/web",
+    "G1/3L/4/top flange",
+    "G1/End-P1/bottom flange",
+    "G1/End-P1/web",
+    "G1/End-P1/top flange",
+    "G1/End-P1/anchorage",
+    "G2/End-A1/bottom flange",
+    "G2/End-A1/web",
+    "G2/End-A1/top flange",
+    "G2/End-A1/anchorage",
+    "G2/L/4/bottom flange",
+    "G2/L/4/web",
+    "G2/L/4/top flange",
+    "G2/L/2/bottom flange",
+    "G2/L/2/web",
+    "G2/L/2/top flange",
+    "G2/3L/4/bottom flange",
+    "G2/3L/4/web",
+    "G2/3L/4/top flange",
+    "G2/End-P1/bottom flange",
+    "G2/End-P1/web",
+    "G2/End-P1/top flange",
+    "G2/End-P1/anchorage",
+    "G3/End-A1/bottom flange",
+    "G3/End-A1/web",
+    "G3/End-A1/top flange",
+    "G3/End-A1/anchorage",
+    "G3/L/4/bottom flange",
+    "G3/L/4/web",
+    "G3/L/4/top flange",
+    "G3/L/2/bottom flange",
+    "G3/L/2/web",
+    "G3/L/2/top flange",
+    "G3/3L/4/bottom flange",
+    "G3/3L/4/web",
+    "G3/3L/4/top flange",
+    "G3/End-P1/bottom flange",
+    "G3/End-P1/web",
+    "G3/End-P1/top flange",
+    "G3/End-P1/anchorage",
+    "G4/End-A1/bottom flange",
+    "G4/End-A1/web",
+    "G4/End-A1/top flange",
+    "G4/End-A1/anchorage",
+    "G4/L/4/bottom flange",
+    "G4/L/4/web",
+    "G4/L/4/top flange",
+    "G4/L/2/bottom flange",
+    "G4/L/2/web",
+    "G4/L/2/top flange",
+    "G4/3L/4/bottom flange",
+    "G4/3L/4/web",
+    "G4/3L/4/top flange",
+    "G4/End-P1/bottom flange",
+    "G4/End-P1/web",
+    "G4/End-P1/top flange",
+    "G4/End-P1/anchorage",
+    "G5/End-A1/bottom flange",
+    "G5/End-A1/web",
+    "G5/End-A1/top flange",
+    "G5/End-A1/anchorage",
+    "G5/L/4/bottom flange",
+    "G5/L/4/web",
+    "G5/L/4/top flange",
+    "G5/L/2/bottom flange",
+    "G5/L/2/web",
+    "G5/L/2/top flange",
+    "G5/3L/4/bottom flange",
+    "G5/3L/4/web",
+    "G5/3L/4/top flange",
+    "G5/End-P1/bottom flange",
+    "G5/End-P1/web",
+    "G5/End-P1/top flange",
+    "G5/End-P1/anchorage",
+    "G6/End-A1/bottom flange",
+    "G6/End-A1/web",
+    "G6/End-A1/top flange",
+    "G6/End-A1/anchorage",
+    "G6/L/4/bottom flange",
+    "G6/L/4/web",
+    "G6/L/4/top flange",
+    "G6/L/2/bottom flange",
+    "G6/L/2/web",
+    "G6/L/2/top flange",
+    "G6/3L/4/bottom flange",
+    "G6/3L/4/web",
+    "G6/3L/4/top flange",
+    "G6/End-P1/bottom flange",
+    "G6/End-P1/web",
+    "G6/End-P1/top flange",
+    "G6/End-P1/anchorage"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "corrosion staining",
+    "leakage / efflorescence",
+    "honeycombing",
+    "surface deterioration",
+    "exposed steel"
+   ]
+  },
+  "Deck slab": {
+   "material": "RCC",
+   "weight": 0.8,
+   "locations": [
+    "B1/End-A1/soffit",
+    "B1/End-A1/top",
+    "B1/L/4/soffit",
+    "B1/L/4/top",
+    "B1/L/2/soffit",
+    "B1/L/2/top",
+    "B1/3L/4/soffit",
+    "B1/3L/4/top",
+    "B1/End-P1/soffit",
+    "B1/End-P1/top",
+    "B2/End-A1/soffit",
+    "B2/End-A1/top",
+    "B2/L/4/soffit",
+    "B2/L/4/top",
+    "B2/L/2/soffit",
+    "B2/L/2/top",
+    "B2/3L/4/soffit",
+    "B2/3L/4/top",
+    "B2/End-P1/soffit",
+    "B2/End-P1/top",
+    "B3/End-A1/soffit",
+    "B3/End-A1/top",
+    "B3/L/4/soffit",
+    "B3/L/4/top",
+    "B3/L/2/soffit",
+    "B3/L/2/top",
+    "B3/3L/4/soffit",
+    "B3/3L/4/top",
+    "B3/End-P1/soffit",
+    "B3/End-P1/top",
+    "B4/End-A1/soffit",
+    "B4/End-A1/top",
+    "B4/L/4/soffit",
+    "B4/L/4/top",
+    "B4/L/2/soffit",
+    "B4/L/2/top",
+    "B4/3L/4/soffit",
+    "B4/3L/4/top",
+    "B4/End-P1/soffit",
+    "B4/End-P1/top",
+    "B5/End-A1/soffit",
+    "B5/End-A1/top",
+    "B5/L/4/soffit",
+    "B5/L/4/top",
+    "B5/L/2/soffit",
+    "B5/L/2/top",
+    "B5/3L/4/soffit",
+    "B5/3L/4/top",
+    "B5/End-P1/soffit",
+    "B5/End-P1/top",
+    "Cantilever-L/End-A1/soffit",
+    "Cantilever-L/End-A1/top",
+    "Cantilever-L/L/4/soffit",
+    "Cantilever-L/L/4/top",
+    "Cantilever-L/L/2/soffit",
+    "Cantilever-L/L/2/top",
+    "Cantilever-L/3L/4/soffit",
+    "Cantilever-L/3L/4/top",
+    "Cantilever-L/End-P1/soffit",
+    "Cantilever-L/End-P1/top",
+    "Cantilever-R/End-A1/soffit",
+    "Cantilever-R/End-A1/top",
+    "Cantilever-R/L/4/soffit",
+    "Cantilever-R/L/4/top",
+    "Cantilever-R/L/2/soffit",
+    "Cantilever-R/L/2/top",
+    "Cantilever-R/3L/4/soffit",
+    "Cantilever-R/3L/4/top",
+    "Cantilever-R/End-P1/soffit",
+    "Cantilever-R/End-P1/top"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "corrosion staining",
+    "leakage / efflorescence",
+    "honeycombing",
+    "surface deterioration",
+    "exposed steel"
+   ]
+  },
+  "Cross girders": {
+   "material": "RCC",
+   "weight": 0.6,
+   "locations": [
+    "CG-A1/B1",
+    "CG-A1/B2",
+    "CG-A1/B3",
+    "CG-A1/B4",
+    "CG-A1/B5",
+    "CG-Mid/B1",
+    "CG-Mid/B2",
+    "CG-Mid/B3",
+    "CG-Mid/B4",
+    "CG-Mid/B5",
+    "CG-P1/B1",
+    "CG-P1/B2",
+    "CG-P1/B3",
+    "CG-P1/B4",
+    "CG-P1/B5"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "corrosion staining",
+    "leakage / efflorescence",
+    "honeycombing",
+    "exposed steel"
+   ]
+  },
+  "Bearings": {
+   "material": "elastomer",
+   "weight": 0.7,
+   "locations": [
+    "BRG-A1-G1",
+    "BRG-A1-G2",
+    "BRG-A1-G3",
+    "BRG-A1-G4",
+    "BRG-A1-G5",
+    "BRG-A1-G6",
+    "BRG-P1-G1",
+    "BRG-P1-G2",
+    "BRG-P1-G3",
+    "BRG-P1-G4",
+    "BRG-P1-G5",
+    "BRG-P1-G6"
+   ],
+   "defects": [
+    "bearing shear deformation",
+    "bearing bulging / splitting",
+    "bearing displacement / walking",
+    "bearing seized / debris",
+    "pedestal cracking"
+   ]
+  },
+  "Expansion joints": {
+   "material": "strip seal",
+   "weight": 0.5,
+   "locations": [
+    "EJ-A1/footpath L",
+    "EJ-A1/carriageway",
+    "EJ-A1/footpath R",
+    "EJ-P1/footpath L",
+    "EJ-P1/carriageway",
+    "EJ-P1/footpath R"
+   ],
+   "defects": [
+    "joint debris",
+    "joint seal torn / leaking",
+    "joint anchorage damage"
+   ]
+  },
+  "Drainage": {
+   "material": "spouts / pipes",
+   "weight": 0.3,
+   "locations": [
+    "D1-L",
+    "D2-L",
+    "D3-L",
+    "D4-L",
+    "D1-R",
+    "D2-R",
+    "D3-R",
+    "D4-R"
+   ],
+   "defects": [
+    "drain blocked",
+    "drain damaged / missing",
+    "discharge onto structure"
+   ]
+  },
+  "Crash barriers": {
+   "material": "RCC",
+   "weight": 0.4,
+   "locations": [
+    "Barrier-L/End-A1",
+    "Barrier-L/L/4",
+    "Barrier-L/L/2",
+    "Barrier-L/3L/4",
+    "Barrier-L/End-P1",
+    "Barrier-R/End-A1",
+    "Barrier-R/L/4",
+    "Barrier-R/L/2",
+    "Barrier-R/3L/4",
+    "Barrier-R/End-P1"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "impact damage",
+    "exposed steel"
+   ]
+  },
+  "Footpaths": {
+   "material": "RCC / paving",
+   "weight": 0.2,
+   "locations": [
+    "Footpath-L/End-A1",
+    "Footpath-L/L/4",
+    "Footpath-L/L/2",
+    "Footpath-L/3L/4",
+    "Footpath-L/End-P1",
+    "Footpath-R/End-A1",
+    "Footpath-R/L/4",
+    "Footpath-R/L/2",
+    "Footpath-R/3L/4",
+    "Footpath-R/End-P1"
+   ],
+   "defects": [
+    "surface deterioration",
+    "crack",
+    "spalling"
+   ]
+  },
+  "Railings": {
+   "material": "steel / RCC",
+   "weight": 0.2,
+   "locations": [
+    "Railing-L/End-A1",
+    "Railing-L/L/4",
+    "Railing-L/L/2",
+    "Railing-L/3L/4",
+    "Railing-L/End-P1",
+    "Railing-R/End-A1",
+    "Railing-R/L/4",
+    "Railing-R/L/2",
+    "Railing-R/3L/4",
+    "Railing-R/End-P1"
+   ],
+   "defects": [
+    "impact damage",
+    "corrosion staining",
+    "missing members"
+   ]
+  },
+  "Wearing coat": {
+   "material": "bituminous",
+   "weight": 0.3,
+   "locations": [
+    "Lane1/End-A1",
+    "Lane1/L/4",
+    "Lane1/L/2",
+    "Lane1/3L/4",
+    "Lane1/End-P1",
+    "Lane2/End-A1",
+    "Lane2/L/4",
+    "Lane2/L/2",
+    "Lane2/3L/4",
+    "Lane2/End-P1",
+    "Lane3/End-A1",
+    "Lane3/L/4",
+    "Lane3/L/2",
+    "Lane3/3L/4",
+    "Lane3/End-P1"
+   ],
+   "defects": [
+    "wearing coat cracking",
+    "potholes / ravelling",
+    "rutting"
+   ]
+  },
+  "Abutment A1": {
+   "material": "RCC",
+   "weight": 0.8,
+   "locations": [
+    "bearing shelf",
+    "dirt wall",
+    "wing wall L",
+    "wing wall R",
+    "stem"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "leakage / efflorescence",
+    "corrosion staining",
+    "exposed steel"
+   ]
+  },
+  "Pier P1": {
+   "material": "RCC",
+   "weight": 0.9,
+   "locations": [
+    "pier cap top",
+    "pier cap soffit",
+    "pier cap cantilever L",
+    "pier cap cantilever R",
+    "shaft"
+   ],
+   "defects": [
+    "crack",
+    "spalling",
+    "leakage / efflorescence",
+    "corrosion staining",
+    "exposed steel"
+   ]
+  }
+ },
+ "defects": {
+  "crack": {
+   "inputs": {
+    "width_mm": "number",
+    "length_m": "number",
+    "orientation": [
+     "map / random",
+     "flexural (transverse, soffit)",
+     "shear (diagonal, web)",
+     "longitudinal along duct",
+     "bursting (anchorage zone)",
+     "other"
+    ],
+    "rust stain": "bool"
+   }
+  },
+  "spalling": {
+   "inputs": {
+    "area_m2": "number",
+    "depth_mm": "number",
+    "steel exposed": [
+     "none",
+     "rebar",
+     "duct / strand"
+    ]
+   }
+  },
+  "corrosion staining": {
+   "inputs": {
+    "area_m2": "number",
+    "severity": [
+     "light",
+     "moderate",
+     "heavy / section loss"
+    ]
+   }
+  },
+  "exposed steel": {
+   "inputs": {
+    "length_m": "number",
+    "steel": [
+     "rebar",
+     "duct / strand"
+    ],
+    "section loss": "bool"
+   }
+  },
+  "leakage / efflorescence": {
+   "inputs": {
+    "area_m2": "number",
+    "state": [
+     "damp patch",
+     "active leakage",
+     "efflorescence",
+     "leakage with rust stain"
+    ]
+   }
+  },
+  "honeycombing": {
+   "inputs": {
+    "area_m2": "number",
+    "depth_mm": "number",
+    "duct visible": "bool"
+   }
+  },
+  "surface deterioration": {
+   "inputs": {
+    "area_m2": "number",
+    "depth_mm": "number"
+   }
+  },
+  "impact damage": {
+   "inputs": {
+    "length_m": "number",
+    "severity": [
+     "scrape",
+     "spalled",
+     "displaced / broken"
+    ]
+   }
+  },
+  "missing members": {
+   "inputs": {
+    "count": "number"
+   }
+  },
+  "bearing shear deformation": {
+   "inputs": {
+    "shear_mm": "number",
+    "elastomer_mm": "number"
+   }
+  },
+  "bearing bulging / splitting": {
+   "inputs": {
+    "state": [
+     "uniform bulging",
+     "uneven bulging",
+     "surface cracks",
+     "splits / exposed plates"
+    ]
+   }
+  },
+  "bearing displacement / walking": {
+   "inputs": {
+    "offset_mm": "number"
+   }
+  },
+  "bearing seized / debris": {
+   "inputs": {
+    "state": [
+     "debris around",
+     "restrained / seized"
+    ]
+   }
+  },
+  "pedestal cracking": {
+   "inputs": {
+    "width_mm": "number"
+   }
+  },
+  "joint debris": {
+   "inputs": {
+    "extent": [
+     "partial",
+     "full length"
+    ]
+   }
+  },
+  "joint seal torn / leaking": {
+   "inputs": {
+    "length_m": "number"
+   }
+  },
+  "joint anchorage damage": {
+   "inputs": {
+    "length_m": "number"
+   }
+  },
+  "drain blocked": {
+   "inputs": {
+    "state": [
+     "partly",
+     "fully"
+    ]
+   }
+  },
+  "drain damaged / missing": {
+   "inputs": {}
+  },
+  "discharge onto structure": {
+   "inputs": {}
+  },
+  "wearing coat cracking": {
+   "inputs": {
+    "area_m2": "number"
+   }
+  },
+  "potholes / ravelling": {
+   "inputs": {
+    "area_m2": "number",
+    "depth_mm": "number"
+   }
+  },
+  "rutting": {
+   "inputs": {
+    "depth_mm": "number"
+   }
+  }
+ },
+ "zones": [
+  "End-A1",
+  "L/4",
+  "L/2",
+  "3L/4",
+  "End-P1"
+ ],
+ "cs_text": {
+  "1": "CS1 good: no or insignificant defects",
+  "2": "CS2 fair: minor defects, no effect on capacity or durability yet",
+  "3": "CS3 poor: defects affecting durability; may affect capacity if not treated",
+  "4": "CS4 severe: capacity or safety may be affected; act now"
+ },
+ "critical": [
+  "PSC girders",
+  "Bearings",
+  "Pier P1",
+  "Abutment A1"
+ ],
+ "inspection_types": [
+  {
+   "type": "superficial (patrol)",
+   "interval": "monthly",
+   "by": "maintenance staff",
+   "scope": "drive-over and walk-along: joints, drains, barriers, wearing coat, visible damage"
+  },
+  {
+   "type": "routine",
+   "interval": "twice a year (pre- and post-monsoon)",
+   "by": "bridge engineer",
+   "scope": "all components from deck and ground with binoculars; bearings and joints close up; app records"
+  },
+  {
+   "type": "principal (detailed)",
+   "interval": "every 3 years and at handing over",
+   "by": "experienced bridge engineer",
+   "scope": "hands-on, under-bridge unit; every location of the hierarchy; crack mapping; baseline NDT grid"
+  },
+  {
+   "type": "special",
+   "interval": "after flood, earthquake, vehicle impact, fire, overload, or a monitoring alarm",
+   "by": "specialist",
+   "scope": "targeted: NDT, load test, structural assessment"
+  }
+ ],
+ "ndt_programme": [
+  {
+   "defect": "longitudinal crack / rust staining along a duct line (girder bottom flange)",
+   "question": "Are the prestressing strands corroding? Is the duct fully grouted?",
+   "tests": [
+    "half-cell potential grid over the duct line",
+    "concrete resistivity (Wenner)",
+    "cover meter",
+    "GPR / ultrasonic tomography over the duct",
+    "chloride profile from drilled dust",
+    "if indicated: endoscope through a drilled hole into the duct"
+   ],
+   "interpretation": "potential < -350 mV CSE with resistivity < 10 kOhm cm: active corrosion likely; chloride at duct depth > 0.2 % of cement: depassivation of strand likely; tomography anomaly: grout void -> re-grouting (vacuum injection)",
+   "locations": "along each cracked duct line, 0.25 m grid, +-1 m beyond the visible crack"
+  },
+  {
+   "defect": "transverse flexural cracks at the soffit near mid-span",
+   "question": "Has the girder lost prestress (designed uncracked)?",
+   "tests": [
+    "crack width / length mapping and tell-tales or crack gauges",
+    "UPV across the crack (crack depth)",
+    "VW strain and levelling trend vs. reference curve",
+    "load test (deflection, strain, crack opening)"
+   ],
+   "interpretation": "cracks opening under traffic and a strain / camber trend away from the reference curve indicate prestress loss; compare decompression load in the load test with design",
+   "locations": "L/4 .. 3L/4 of the affected girder, all faces of the bottom flange"
+  },
+  {
+   "defect": "diagonal web cracks near the supports",
+   "question": "Is the shear capacity or the end-block reinforcement adequate?",
+   "tests": [
+    "crack mapping, width monitoring",
+    "UPV (direct, through the web)",
+    "cover meter for link spacing",
+    "load test with trucks near the support"
+   ],
+   "interpretation": "cracks > 0.2 mm or growing: detailed shear assessment with as-built links",
+   "locations": "from the bearing to 1.5 d, both faces of the web"
+  },
+  {
+   "defect": "honeycombing / surface deterioration / doubtful concrete",
+   "question": "Is the in-situ concrete quality and strength adequate?",
+   "tests": [
+    "rebound hammer (IS 516 Part 5/Sec 4)",
+    "UPV (IS 516 Part 5/Sec 1)",
+    "combined rebound + UPV (SonReb) calibrated on cores (IS 516 Part 4)"
+   ],
+   "interpretation": "UPV well below the healthy reference (e.g. < 3.75 km/s, 'doubtful' in IS 516-5-1) or rebound below reference - 2 sd: take cores; estimate strength from the calibrated curve",
+   "locations": "grid of test areas around the defect plus reference areas on sound concrete of the same element"
+  },
+  {
+   "defect": "spalling / delamination / exposed rebar on the deck soffit or cross girders",
+   "question": "How far does corrosion-induced delamination extend? What is causing it?",
+   "tests": [
+    "hammer sounding",
+    "half-cell potential",
+    "cover meter",
+    "carbonation depth (phenolphthalein)",
+    "chloride profile"
+   ],
+   "interpretation": "carbonation depth >= cover or chloride > 0.4 % of cement at rebar: corrosion initiated; repair extent = hollow-sounding area + 0.3 m",
+   "locations": "the bay concerned on a 0.5 m grid, plus one sound bay as reference"
+  },
+  {
+   "defect": "leakage / efflorescence at girder ends below an expansion joint",
+   "question": "Is chloride-laden water reaching the end blocks, anchorages and bearings?",
+   "tests": [
+    "chloride profile at anchorage zones",
+    "half-cell potential on end blocks",
+    "resistivity",
+    "visual check of anchorage protection (open the pocket if necessary)"
+   ],
+   "interpretation": "chloride rising with depth and potentials more negative than -350 mV: anchorage at risk; replace the joint seal first, then repair",
+   "locations": "end blocks of all girders under the leaking joint (0.25 m grid over 1.5 m)"
+  },
+  {
+   "defect": "bursting / splitting cracks in the anchorage zone",
+   "question": "Is the anchorage-zone reinforcement working? Is the anchorage itself sound?",
+   "tests": [
+    "crack mapping",
+    "UPV",
+    "GPR for bursting steel",
+    "impact-echo on the anchorage pocket"
+   ],
+   "interpretation": "cracks > 0.2 mm or voids behind the plate: specialist assessment of the anchorage",
+   "locations": "end face and 1 m of the end block"
+  },
+  {
+   "defect": "bearing shear deformation, bulging, splitting, walking or seizure",
+   "question": "Is the bearing accommodating movement and rotation as designed?",
+   "tests": [
+    "measure shear deformation and bulging with a gauge",
+    "bearing-displacement transducer: movement vs. temperature",
+    "Shore A hardness of the elastomer",
+    "level survey of the bearing seat"
+   ],
+   "interpretation": "shear strain > 0.7, splits or exposed plates, or a movement / temperature slope well below alpha L = 0.386 mm/degC: replace the bearing (jacking under the end cross girder)",
+   "locations": "all 12 bearings"
+  }
+ ],
+ "girder_y": [
+  1.2000000000000002,
+  3.8000000000000003,
+  6.4,
+  9.0,
+  11.600000000000001,
+  14.2
+ ],
+ "deck_width": 15.4,
+ "span": 33.0
+}

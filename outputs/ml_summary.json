@@ -1,0 +1,632 @@
+{
+ "n_train": 1666,
+ "n_test": 714,
+ "temperature_models": {
+  "f1": {
+   "at_30C": 3.4415257357989284,
+   "per_degC": -0.005740690122697281,
+   "r2": 0.8060491622878764
+  },
+  "f2": {
+   "at_30C": 3.510921654473723,
+   "per_degC": -0.0061408583747114285,
+   "r2": 0.8311275002368737
+  },
+  "f3": {
+   "at_30C": 7.961052776826188,
+   "per_degC": -0.013488645041774213,
+   "r2": 0.8145808284599125
+  },
+  "lt_defl_G1": {
+   "at_30C": 8.383506654299161,
+   "per_degC": 0.03130516300244672,
+   "r2": 0.6559037685804303
+  },
+  "lt_defl_G2": {
+   "at_30C": 7.526227027430656,
+   "per_degC": 0.027467963273108815,
+   "r2": 0.6154856390837065
+  },
+  "lt_defl_G3": {
+   "at_30C": 6.257422731077508,
+   "per_degC": 0.022972243362945188,
+   "r2": 0.5967941767236515
+  },
+  "lt_defl_G4": {
+   "at_30C": 4.508918263816838,
+   "per_degC": 0.016450996379007,
+   "r2": 0.5721757292138194
+  },
+  "lt_defl_G5": {
+   "at_30C": 2.5605416359433426,
+   "per_degC": 0.009482199898399452,
+   "r2": 0.45142007165279063
+  },
+  "lt_defl_G6": {
+   "at_30C": 0.5932032566916913,
+   "per_degC": 0.0018686408889939405,
+   "r2": 0.03858273992795658
+  },
+  "lt_strain_G1": {
+   "at_30C": 119.20487245316922,
+   "per_degC": 0.43095653881846196,
+   "r2": 0.3398471784176228
+  },
+  "lt_strain_G2": {
+   "at_30C": 102.28031995474268,
+   "per_degC": 0.31394792367973745,
+   "r2": 0.20728854699594412
+  },
+  "lt_strain_G3": {
+   "at_30C": 84.17346158626924,
+   "per_degC": 0.361631905074942,
+   "r2": 0.3028994145992846
+  },
+  "lt_strain_G4": {
+   "at_30C": 63.596949211951085,
+   "per_degC": 0.2200275456548907,
+   "r2": 0.14278573524962823
+  },
+  "lt_strain_G5": {
+   "at_30C": 37.150464986423586,
+   "per_degC": 0.14444374942351748,
+   "r2": 0.066860788987675
+  },
+  "lt_strain_G6": {
+   "at_30C": 6.2209980925227155,
+   "per_degC": 0.10376814845137777,
+   "r2": 0.04191745506526656
+  }
+ },
+ "wet_shift": {
+  "hcp_min": -39.08479435699607,
+  "hcp_mean": -38.281555283144286,
+  "hcp_soffit_mid_min": -37.89042273200448,
+  "resistivity_min": -0.48895901168121636,
+  "resistivity_median": -0.48866013727082347
+ },
+ "f1_healthy_sd_mHz": {
+  "raw": 37.796881478373436,
+  "compensated": 16.645689860973782
+ },
+ "signatures": {
+  "healthy": {
+   "df1_pct": -0.0232,
+   "df2_pct": -0.0054,
+   "f2_over_f1": 1.0204,
+   "lt_ratio_max": 1.0117,
+   "lt_ratio_min": 0.9868,
+   "camber_res_max": 0.403,
+   "vw_res_spread": 9.9664,
+   "brg_slope_ratio_min": 0.9888,
+   "upv_girder_min": 4.4226,
+   "hcp_min_c": -169.4859,
+   "hcp_end_minus_mid": -0.0509,
+   "vis_hi": 97.3837
+  },
+  "prestress_loss": {
+   "df1_pct": -0.0282,
+   "df2_pct": -0.0788,
+   "f2_over_f1": 1.0197,
+   "lt_ratio_max": 1.0125,
+   "lt_ratio_min": 0.9857,
+   "camber_res_max": 4.7553,
+   "vw_res_spread": 63.7954,
+   "brg_slope_ratio_min": 0.9901,
+   "upv_girder_min": 4.419,
+   "hcp_min_c": -198.5525,
+   "hcp_end_minus_mid": 4.6169,
+   "vis_hi": 93.1519
+  },
+  "girder_cracking": {
+   "df1_pct": -1.867,
+   "df2_pct": -1.242,
+   "f2_over_f1": 1.0268,
+   "lt_ratio_max": 1.0701,
+   "lt_ratio_min": 1.0019,
+   "camber_res_max": 0.7568,
+   "vw_res_spread": 10.1834,
+   "brg_slope_ratio_min": 0.9892,
+   "upv_girder_min": 4.3551,
+   "hcp_min_c": -169.6645,
+   "hcp_end_minus_mid": -0.1183,
+   "vis_hi": 85.2956
+  },
+  "concrete_deterioration": {
+   "df1_pct": -3.0254,
+   "df2_pct": -1.6636,
+   "f2_over_f1": 1.0351,
+   "lt_ratio_max": 1.0968,
+   "lt_ratio_min": 1.0144,
+   "camber_res_max": 0.9719,
+   "vw_res_spread": 10.3179,
+   "brg_slope_ratio_min": 0.99,
+   "upv_girder_min": 3.718,
+   "hcp_min_c": -170.5319,
+   "hcp_end_minus_mid": 0.3314,
+   "vis_hi": 88.9464
+  },
+  "bearing_seized": {
+   "df1_pct": 3.0054,
+   "df2_pct": 2.9565,
+   "f2_over_f1": 1.0199,
+   "lt_ratio_max": 0.9539,
+   "lt_ratio_min": 0.9088,
+   "camber_res_max": 0.3962,
+   "vw_res_spread": 10.0954,
+   "brg_slope_ratio_min": 0.8691,
+   "upv_girder_min": 4.4257,
+   "hcp_min_c": -169.7931,
+   "hcp_end_minus_mid": -0.0136,
+   "vis_hi": 92.0896
+  },
+  "bearing_degraded": {
+   "df1_pct": -0.098,
+   "df2_pct": -0.1962,
+   "f2_over_f1": 1.0192,
+   "lt_ratio_max": 1.0142,
+   "lt_ratio_min": 0.9884,
+   "camber_res_max": 0.4276,
+   "vw_res_spread": 9.8368,
+   "brg_slope_ratio_min": 0.9891,
+   "upv_girder_min": 4.4202,
+   "hcp_min_c": -172.0026,
+   "hcp_end_minus_mid": -0.2889,
+   "vis_hi": 91.3579
+  },
+  "chloride_corrosion": {
+   "df1_pct": -0.0329,
+   "df2_pct": -0.0417,
+   "f2_over_f1": 1.0201,
+   "lt_ratio_max": 1.0108,
+   "lt_ratio_min": 0.9845,
+   "camber_res_max": 0.3775,
+   "vw_res_spread": 10.4059,
+   "brg_slope_ratio_min": 0.9894,
+   "upv_girder_min": 4.3405,
+   "hcp_min_c": -339.5575,
+   "hcp_end_minus_mid": -74.9807,
+   "vis_hi": 78.2192
+  }
+ },
+ "anomaly": {
+  "vibration": {
+   "false_alarm": 0.00980392156862745,
+   "detection": 0.36437908496732024,
+   "auc": 0.7258906830706139,
+   "per_class": {
+    "prestress_loss": 0.029411764705882353,
+    "girder_cracking": 0.6078431372549019,
+    "concrete_deterioration": 0.7156862745098039,
+    "bearing_seized": 0.7156862745098039,
+    "bearing_degraded": 0.10784313725490197,
+    "chloride_corrosion": 0.00980392156862745
+   }
+  },
+  "load_test": {
+   "false_alarm": 0.00980392156862745,
+   "detection": 0.29901960784313725,
+   "auc": 0.6536908881199538,
+   "per_class": {
+    "prestress_loss": 0.00980392156862745,
+    "girder_cracking": 0.5196078431372549,
+    "concrete_deterioration": 0.696078431372549,
+    "bearing_seized": 0.5490196078431373,
+    "bearing_degraded": 0.0196078431372549,
+    "chloride_corrosion": 0.0
+   }
+  },
+  "monitoring": {
+   "false_alarm": 0.0196078431372549,
+   "detection": 0.2908496732026144,
+   "auc": 0.6483243624247085,
+   "per_class": {
+    "prestress_loss": 0.8823529411764706,
+    "girder_cracking": 0.0392156862745098,
+    "concrete_deterioration": 0.2549019607843137,
+    "bearing_seized": 0.5490196078431373,
+    "bearing_degraded": 0.0196078431372549,
+    "chloride_corrosion": 0.0
+   }
+  },
+  "ndt": {
+   "false_alarm": 0.00980392156862745,
+   "detection": 0.3954248366013072,
+   "auc": 0.6998109701396898,
+   "per_class": {
+    "prestress_loss": 0.28431372549019607,
+    "girder_cracking": 0.23529411764705882,
+    "concrete_deterioration": 0.9411764705882353,
+    "bearing_seized": 0.0,
+    "bearing_degraded": 0.0,
+    "chloride_corrosion": 0.9117647058823529
+   }
+  },
+  "all": {
+   "false_alarm": 0.0,
+   "detection": 0.8856209150326797,
+   "auc": 0.9511566064334229,
+   "per_class": {
+    "prestress_loss": 0.8627450980392157,
+    "girder_cracking": 0.9411764705882353,
+    "concrete_deterioration": 0.9215686274509803,
+    "bearing_seized": 0.8725490196078431,
+    "bearing_degraded": 0.7647058823529411,
+    "chloride_corrosion": 0.9509803921568627
+   }
+  },
+  "isolation_forest_all": {
+   "false_alarm": 0.0,
+   "detection": 0.477124183006536,
+   "auc": 0.8738465974625144
+  }
+ },
+ "classification": {
+  "vibration": {
+   "macro_f1": 0.4086594961240718,
+   "accuracy": 0.4103641456582633,
+   "recall": {
+    "healthy": 0.37254901960784315,
+    "prestress_loss": 0.19607843137254902,
+    "girder_cracking": 0.45098039215686275,
+    "concrete_deterioration": 0.5294117647058824,
+    "bearing_seized": 0.8529411764705882,
+    "bearing_degraded": 0.24509803921568626,
+    "chloride_corrosion": 0.22549019607843138
+   }
+  },
+  "load_test": {
+   "macro_f1": 0.3791984961206816,
+   "accuracy": 0.3795518207282913,
+   "recall": {
+    "healthy": 0.21568627450980393,
+    "prestress_loss": 0.22549019607843138,
+    "girder_cracking": 0.49019607843137253,
+    "concrete_deterioration": 0.5588235294117647,
+    "bearing_seized": 0.7254901960784313,
+    "bearing_degraded": 0.19607843137254902,
+    "chloride_corrosion": 0.24509803921568626
+   }
+  },
+  "monitoring": {
+   "macro_f1": 0.4086014683362049,
+   "accuracy": 0.40336134453781514,
+   "recall": {
+    "healthy": 0.21568627450980393,
+    "prestress_loss": 0.9019607843137255,
+    "girder_cracking": 0.19607843137254902,
+    "concrete_deterioration": 0.3333333333333333,
+    "bearing_seized": 0.7058823529411765,
+    "bearing_degraded": 0.20588235294117646,
+    "chloride_corrosion": 0.2647058823529412
+   }
+  },
+  "ndt": {
+   "macro_f1": 0.508732024088411,
+   "accuracy": 0.49719887955182074,
+   "recall": {
+    "healthy": 0.2549019607843137,
+    "prestress_loss": 0.4019607843137255,
+    "girder_cracking": 0.39215686274509803,
+    "concrete_deterioration": 0.9019607843137255,
+    "bearing_seized": 0.37254901960784315,
+    "bearing_degraded": 0.21568627450980393,
+    "chloride_corrosion": 0.9411764705882353
+   }
+  },
+  "visual": {
+   "macro_f1": 0.7512095603125143,
+   "accuracy": 0.742296918767507,
+   "recall": {
+    "healthy": 0.9411764705882353,
+    "prestress_loss": 0.35294117647058826,
+    "girder_cracking": 0.9215686274509803,
+    "concrete_deterioration": 0.7058823529411765,
+    "bearing_seized": 0.6764705882352942,
+    "bearing_degraded": 0.6372549019607843,
+    "chloride_corrosion": 0.9607843137254902
+   }
+  },
+  "all": {
+   "macro_f1": 0.9087541920319675,
+   "accuracy": 0.9047619047619048,
+   "recall": {
+    "healthy": 0.9215686274509803,
+    "prestress_loss": 0.9509803921568627,
+    "girder_cracking": 0.9411764705882353,
+    "concrete_deterioration": 0.9607843137254902,
+    "bearing_seized": 0.8333333333333334,
+    "bearing_degraded": 0.7549019607843137,
+    "chloride_corrosion": 0.9705882352941176
+   }
+  }
+ },
+ "accuracy_vs_severity": {
+  "vibration": {
+   "(-0.001, 0.01]": 0.37254901960784315,
+   "(0.01, 0.25]": 0.20149253731343283,
+   "(0.25, 0.5]": 0.389937106918239,
+   "(0.5, 0.75]": 0.5,
+   "(0.75, 1.0]": 0.5414012738853503
+  },
+  "all": {
+   "(-0.001, 0.01]": 0.9215686274509803,
+   "(0.01, 0.25]": 0.664179104477612,
+   "(0.25, 0.5]": 0.9119496855345912,
+   "(0.5, 0.75]": 0.9938271604938271,
+   "(0.75, 1.0]": 1.0
+  }
+ },
+ "permutation_importance_all": {
+  "vis_flexural_crack": 0.0494,
+  "upv_girder_min": 0.0429,
+  "camber_res_max": 0.0292,
+  "vis_cs_bearings": 0.0281,
+  "vis_cs_joints": 0.0245,
+  "vis_bearing_defect": 0.0221,
+  "df1_pct": 0.0119,
+  "df2_pct": 0.0116,
+  "brg_slope_ratio_min": 0.0079,
+  "vw_res_spread": 0.0055,
+  "chloride_end_max": 0.003,
+  "vis_hi": 0.0028,
+  "hcp_end_minus_mid": 0.0019,
+  "upv_girder_mean": 0.0018,
+  "lt_ratio_G3": 0.0013,
+  "vis_leakage_girder_end": 0.0009,
+  "vis_cs_girders": 0.0008,
+  "camber_res_G3": 0.0007,
+  "df3_pct": 0.0007,
+  "lt_ratio_G1": 0.0006
+ },
+ "confusion_all": [
+  [
+   94,
+   2,
+   0,
+   3,
+   3,
+   0,
+   0
+  ],
+  [
+   5,
+   97,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   5,
+   0,
+   96,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   4,
+   0,
+   0,
+   98,
+   0,
+   0,
+   0
+  ],
+  [
+   11,
+   0,
+   0,
+   0,
+   85,
+   6,
+   0
+  ],
+  [
+   24,
+   0,
+   0,
+   0,
+   1,
+   77,
+   0
+  ],
+  [
+   3,
+   0,
+   0,
+   0,
+   0,
+   0,
+   99
+  ]
+ ],
+ "confusion_vibration": [
+  [
+   38,
+   24,
+   2,
+   1,
+   3,
+   13,
+   21
+  ],
+  [
+   19,
+   20,
+   4,
+   3,
+   6,
+   23,
+   27
+  ],
+  [
+   5,
+   3,
+   46,
+   31,
+   2,
+   8,
+   7
+  ],
+  [
+   2,
+   5,
+   32,
+   54,
+   2,
+   2,
+   5
+  ],
+  [
+   4,
+   8,
+   0,
+   1,
+   87,
+   0,
+   2
+  ],
+  [
+   19,
+   23,
+   3,
+   4,
+   4,
+   25,
+   24
+  ],
+  [
+   24,
+   20,
+   3,
+   1,
+   10,
+   21,
+   23
+  ]
+ ],
+ "regression": {
+  "prestress_loss_from_monitoring": {
+   "mae_pct": 3.5994513480352364,
+   "r2": 0.6206685775443761
+  },
+  "prestress_loss_from_vibration": {
+   "mae_pct": 7.420040345631292,
+   "r2": -0.36718447008900124
+  },
+  "prestress_loss_from_all": {
+   "mae_pct": 3.2053291932634216,
+   "r2": 0.7027002229588082
+  },
+  "severity_prestress_loss": {
+   "mae": 0.11871589604345778,
+   "r2": 0.7027002229689694
+  },
+  "severity_girder_cracking": {
+   "mae": 0.08379920547683924,
+   "r2": 0.8835735270436932
+  },
+  "severity_concrete_deterioration": {
+   "mae": 0.04108799295573173,
+   "r2": 0.9647689738872597
+  },
+  "severity_bearing_seized": {
+   "mae": 0.06868924404980975,
+   "r2": 0.8871826997792476
+  },
+  "severity_bearing_degraded": {
+   "mae": 0.07928940576588879,
+   "r2": 0.8761424755642336
+  },
+  "severity_chloride_corrosion": {
+   "mae": 0.017082653238413625,
+   "r2": 0.9927074201716685
+  }
+ },
+ "localisation": {
+  "prestress_loss": {
+   "exact": 0.7450980392156863,
+   "within_one_girder": 0.9901960784313726
+  },
+  "girder_cracking": {
+   "exact": 0.6078431372549019,
+   "within_one_girder": 0.8235294117647058
+  },
+  "concrete_deterioration": {
+   "exact": 0.6078431372549019,
+   "within_one_girder": 0.8921568627450981
+  }
+ },
+ "clustering": {
+  "ari": 0.25232709658780317,
+  "crosstab": {
+   "healthy": {
+    "0": 340,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0
+   },
+   "prestress_loss": {
+    "0": 152,
+    "1": 0,
+    "2": 93,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 95
+   },
+   "girder_cracking": {
+    "0": 23,
+    "1": 317,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0
+   },
+   "concrete_deterioration": {
+    "0": 110,
+    "1": 9,
+    "2": 0,
+    "3": 221,
+    "4": 0,
+    "5": 0,
+    "6": 0
+   },
+   "bearing_seized": {
+    "0": 231,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 109,
+    "5": 0,
+    "6": 0
+   },
+   "bearing_degraded": {
+    "0": 340,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0
+   },
+   "chloride_corrosion": {
+    "0": 121,
+    "1": 1,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 218,
+    "6": 0
+   }
+  }
+ }
+}

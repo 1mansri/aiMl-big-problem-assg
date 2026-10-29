@@ -1,0 +1,6 @@
+* text=auto
+
+*.png binary
+*.pdf binary
+*.gz binary
+*.joblib binary
