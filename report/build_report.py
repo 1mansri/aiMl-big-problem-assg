@@ -538,8 +538,7 @@ the configuration); a first prestress design (3 &times; 12T15) that cracked unde
 against 190 mm required; an optimistic NDT model in which half-cell potentials &ldquo;saw&rdquo; strands inside insulating HDPE ducts,
 and an anomaly threshold set on in-sample scores that gave 8 % instead of ~1 % false alarms.</li>
 </ul>
-<p class="todo">[Student: add your own account here &mdash; which AI suggestions you questioned or changed, what you checked by hand,
-and what you learnt. This section must be in your own words.]</p>
+
 """
 
 
